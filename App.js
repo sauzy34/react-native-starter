@@ -1,9 +1,10 @@
 import React from 'react'
-import { NetInfo, Platform, StatusBar, StyleSheet, View, SafeAreaView } from 'react-native'
+import { Platform, StatusBar, StyleSheet, View, SafeAreaView } from 'react-native'
 import { AppLoading } from 'expo'
 import { Asset } from 'expo-asset'
 import * as Font from 'expo-font'
 import * as Icon from '@expo/vector-icons'
+import NetInfo from '@react-native-community/netinfo'
 import AppNavigator from './navigation/AppNavigator'
 import { ThemeProvider } from 'styled-components'
 import Colors from './constants/Colors'
@@ -14,8 +15,8 @@ export default class App extends React.Component {
     isConnected: true
   }
   componentDidMount() {
-    NetInfo.isConnected.addEventListener('connectionChange', isConnected => {
-      this.setState({ isConnected })
+    NetInfo.fetch().then(state => {
+      this.setState({ isConnected: this.state.isConnected })
     })
   }
 
