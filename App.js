@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Platform, StatusBar, StyleSheet, View, SafeAreaView } from 'react-native'
 import { AppLoading } from 'expo'
 import { Asset } from 'expo-asset'
@@ -9,49 +9,16 @@ import AppNavigator from './navigation/AppNavigator'
 import { ThemeProvider } from 'styled-components'
 import Colors from './constants/Colors'
 
-export default class App extends React.Component {
-  state = {
-    isLoadingComplete: false,
-    isConnected: true
-  }
-  componentDidMount() {
+function App({ ...props }) {
+  const [isLoadingComplete, setIsLoadingComplete] = useState(false)
+  const [isConnected, setIsConnected] = useState(true)
+
+  useEffect(() => {
     NetInfo.fetch().then(state => {
-      this.setState({ isConnected: this.state.isConnected })
+      setIsConnected(isConnected)
     })
-  }
-
-  render() {
-    if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
-      return (
-        <AppLoading
-          startAsync={this._loadResourcesAsync}
-          onError={this._handleLoadingError}
-          onFinish={this._handleFinishLoading}
-        />
-      )
-    } else if (!this.state.isConnected) {
-      return <View style={styles.container}>{alert('Not Internet Connection')}</View>
-    } else {
-      return (
-        <ThemeProvider theme={Colors}>
-          <React.Fragment>
-            <SafeAreaView style={{ backgroundColor: '#546e7a' }}>
-              <View style={styles.container}>
-                {Platform.OS === 'ios' ? (
-                  <React.Fragment />
-                ) : (
-                  <StatusBar backgroundColor={'#546e7a'} barStyle="dark-content" />
-                )}
-              </View>
-            </SafeAreaView>
-            <AppNavigator />
-          </React.Fragment>
-        </ThemeProvider>
-      )
-    }
-  }
-
-  _loadResourcesAsync = async () => {
+  }, [])
+  async function loadResourcesAsync() {
     return Promise.all([
       Asset.loadAsync([require('./assets/images/icon.png'), require('./assets/images/icon.png')]),
       Font.loadAsync({
@@ -64,14 +31,37 @@ export default class App extends React.Component {
     ])
   }
 
-  _handleLoadingError = error => {
+  async function handleLoadingError(error) {
     // In this case, you might want to report the error to your error
     // reporting service, for example Sentry
     console.warn(error)
   }
 
-  _handleFinishLoading = () => {
-    this.setState({ isLoadingComplete: true })
+  async function handleFinishLoading() {
+    setIsLoadingComplete(true)
+  }
+
+  if (!isLoadingComplete && !props.skipLoadingScreen) {
+    return <AppLoading startAsync={loadResourcesAsync} onError={handleLoadingError} onFinish={handleFinishLoading} />
+  } else if (!isConnected) {
+    return <View style={styles.container}>{alert('Not Internet Connection')}</View>
+  } else {
+    return (
+      <ThemeProvider theme={Colors}>
+        <React.Fragment>
+          <SafeAreaView style={{ backgroundColor: Colors.primary }}>
+            <View style={styles.container}>
+              {Platform.OS === 'ios' ? (
+                <React.Fragment />
+              ) : (
+                <StatusBar backgroundColor={Colors.primary} barStyle="light-content" />
+              )}
+            </View>
+          </SafeAreaView>
+          <AppNavigator />
+        </React.Fragment>
+      </ThemeProvider>
+    )
   }
 }
 
@@ -81,3 +71,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   }
 })
+
+export default App

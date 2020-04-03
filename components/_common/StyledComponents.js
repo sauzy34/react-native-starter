@@ -1,27 +1,7 @@
-import { View, Text, TouchableOpacity, Image, ImageBackground } from 'react-native'
-import Colors from '../constants/Colors'
-import styled from 'styled-components/native'
+import { View, TouchableOpacity, Image, ImageBackground } from 'react-native'
+import Colors from '../../constants/Colors'
+import styled from 'styled-components'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-
-const StyledText = styled(Text)`
-  width: ${props => props.width || 'auto'};
-  font-size: ${props => props.fontSize || '16px'};
-  color: ${props => props.color || Colors.grey3};
-  font-family: ${props =>
-    props.fontWeight === 'bold'
-      ? 'space-mono'
-      : props.fontWeight === 'semiBold'
-      ? 'space-mono'
-      : props.fontWeight === 'medium'
-      ? 'space-mono'
-      : 'space-mono'};
-  background-color: ${props => props.backgroundColor || 'transparent'};
-  letter-spacing: ${props => props.letterSpacing || ' 0.2px'};
-  padding: ${props => props.padding || '0px'};
-  text-decoration-line: ${props => props.textDecorationLine || 'none'};
-  flex: ${props => props.flex || 'none'};
-  flex-wrap: ${props => props.flexWrap || 'nowrap'};
-`
 
 const FlexWrapper = styled(View)`
   flex-direction: ${props => props.direction || 'column'};
@@ -36,7 +16,7 @@ const FlexWrapper = styled(View)`
   background: ${props => props.background || 'transparent'};
   border-radius: ${props => props.borderRadius || '0'};
   position: ${props => props.position || 'relative'};
-  border-radius: ${props => props.borderRadius || '15px'};
+  border-radius: ${props => props.borderRadius || '0px'};
   border-width: ${props => props.borderWidth || '0px'};
   border-color: ${props => props.borderColor || Colors.white};
 `
@@ -53,7 +33,7 @@ const TouchableFlex = styled(TouchableOpacity)`
   background: ${props => props.background || 'transparent'};
   border-radius: ${props => props.borderRadius || '0'};
   position: ${props => props.position || 'relative'};
-  border-radius: ${props => props.borderRadius || '15px'};
+  border-radius: ${props => props.borderRadius || '0px'};
   border-width: ${props => props.borderWidth || '0px'};
   border-color: ${props => props.borderColor || Colors.white};
 `
@@ -90,4 +70,4 @@ const Overlay = styled(View)`
   position: absolute;
 `
 
-export { StyledText, FlexWrapper, TouchableFlex, StyledImage, BgImage, StyledScrollView, Arrow, Overlay }
+export { FlexWrapper, TouchableFlex, StyledImage, BgImage, StyledScrollView, Arrow, Overlay }
