@@ -1,16 +1,14 @@
 import React from 'react'
-import { View } from 'react-native'
-import { StyledText } from '../components'
-export default class SettingsScreen extends React.Component {
-  static navigationOptions = {
-    headerTitle: 'Settings'
-  }
+import { withTheme } from 'styled-components'
 
-  render() {
-    return (
-      <View>
-        <StyledText fontSize="20px">Settings</StyledText>
-      </View>
-    )
-  }
+import { StyledText, FlexWrapper } from '../components'
+
+function SettingsScreen({ ...props }) {
+  return (
+    <FlexWrapper height="100%" background="#ddd" alignItems="center" justifyContent="center">
+      <StyledText fontSize="20px">SettingsScreen</StyledText>
+    </FlexWrapper>
+  )
 }
+
+export default withTheme(SettingsScreen)

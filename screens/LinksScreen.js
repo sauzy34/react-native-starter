@@ -1,16 +1,14 @@
 import React from 'react'
-import { View } from 'react-native'
-import { StyledText } from '../components'
-export default class LinksScreen extends React.Component {
-  static navigationOptions = {
-    headerTitle: 'Links'
-  }
+import { withTheme } from 'styled-components'
 
-  render() {
-    return (
-      <View>
-        <StyledText fontSize="20px">Links</StyledText>
-      </View>
-    )
-  }
+import { StyledText, FlexWrapper } from '../components'
+
+function LinksScreen({ ...props }) {
+  return (
+    <FlexWrapper height="100%" background="#ddd" alignItems="center" justifyContent="center">
+      <StyledText fontSize="20px">LinksScreen</StyledText>
+    </FlexWrapper>
+  )
 }
+
+export default withTheme(LinksScreen)
