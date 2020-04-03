@@ -8,6 +8,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Icon, FlexWrapper, StyledText } from '../components'
 import AuthContext from '../context'
 
+const Text = ''
+
 const headerStyle = {
   headerStyle: {
     backgroundColor: Colors.primary,

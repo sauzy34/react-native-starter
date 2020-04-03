@@ -7,13 +7,17 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "eject": "expo eject",
-    "test": "jest",
-    "lint": "eslint node_modules/expo/AppEntry.js"
+    "test": "jest"
+  },
+  "lint-staged": {
+    "**/*.{js}": [
+      "eslint . --fix",
+      "git add"
+    ]
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint",
-      "pre-push": "npm run lint"
+      "pre-commit": "lint-staged"
     }
   },
   "jest": {
